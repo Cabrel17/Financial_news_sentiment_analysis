@@ -26,25 +26,37 @@ def preprocess2(path):
 
 def process_text1(text):
     """
-    This function return a list of tokens without stop words.
+    This function return a document without stop words and keep lemme of the words.
     """
     import nltk
-    from nltk.corpus import stopwords, words
+    from nltk.corpus import stopwords
     from nltk.tokenize import RegexpTokenizer 
+    from nltk.stem import WordNetLemmatizer, PorterStemmer
 
     # Transforming in lower characters and removing of empty spaces
     text = text.lower().strip()
 
     # Tokenization
-    tokenizer = RegexpTokenizer(r'\$[\d,.]+|€[\d,.]+|£[\d,.]+|\d+\.\d+|\d+|[\w]+')
+    tokenizer = RegexpTokenizer(r'\w+')
     tokens = tokenizer.tokenize(text)
 
     # Drop stop_words
     stop_words = set(stopwords.words('english'))
     cleaned_tokens_list = [w for w in tokens if w not in stop_words]
 
-    return cleaned_tokens_list
+    #stemming 
+    stem = PorterStemmer()
+    tokens = [stem.stem(w) for w in cleaned_tokens_list]
 
+     # cleaned_text 
+    cleaned_text = " ".join(tokens)
+
+    return cleaned_text
+
+
+def get_polarity(text):
+    from textblob import TextBlob
+    return TextBlob(text).sentiment.polarity
 
 def display_tokens_info(tokens):
     """display info about corpus"""
