@@ -29,7 +29,7 @@ def process_text1(text):
     This function return a list of tokens without stop words.
     """
     import nltk
-    from nltk.corpus import stopwords
+    from nltk.corpus import stopwords, words
     from nltk.tokenize import RegexpTokenizer 
 
     # Transforming in lower characters and removing of empty spaces
@@ -51,21 +51,34 @@ def display_tokens_info(tokens):
     print(f"nb tokens {len(tokens)}, nb tokens unique {len(set(tokens))}")
 
 
-def process_text2(text, rare_tokens):
+def process_text2(text, eng_words):
     """
     This function return a list of tokens without stop words and rare_tokens.
     """
     import pandas as pd
+    from nltk.stem import WordNetLemmatizer, PorterStemmer
 
     tokens = process_text1(text) # use process_text1 to return a token list without stop words
 
-    # keep tokens whose nb characters > 1
-    tokens = [w for w in tokens if len(w) > 1]
+    # keep tokens whose nb characters > 3
+    # tokens = [w for w in tokens if len(w) > 3]
     
     # construction of a list of tokens without rare_tokens
-    tokens = [w for w in tokens if w not in rare_tokens] 
+    # tokens = [w for w in tokens if w not in rare_tokens] 
 
+    # construction of a list of tokens uniquely with alphabetic characters
+    tokens = [w for w in tokens if w.isalpha()]
+
+    # lemmatisation
+    lemmatizer = WordNetLemmatizer()
+    tokens = [lemmatizer.lemmatize(w) for w in tokens]
+
+    # english words
+    tokens = [w for w in tokens if w in eng_words]
+
+    # cleaned_text 
+    cleaned_text = " ".join(tokens)
     
 
-    return tokens
+    return cleaned_text
     
