@@ -58,39 +58,44 @@ def get_polarity(text):
     from textblob import TextBlob
     return TextBlob(text).sentiment.polarity
 
+
 def display_tokens_info(tokens):
     """display info about corpus"""
     print(f"nb tokens {len(tokens)}, nb tokens unique {len(set(tokens))}")
 
 
-def process_text2(text, eng_words):
+def prepare_lda_data(text):
     """
-    This function return a list of tokens without stop words and rare_tokens.
+    Prepares the text for LDA by tokenizing it.
     """
-    import pandas as pd
-    from nltk.stem import WordNetLemmatizer, PorterStemmer
+    # Tokenization by space
+    return text.split()
 
-    tokens = process_text1(text) # use process_text1 to return a token list without stop words
 
-    # keep tokens whose nb characters > 3
-    # tokens = [w for w in tokens if len(w) > 3]
+def perform_lda(df, text_column, num_topics=5, num_words=5):
+    """
+    Applies LDA model for subject analysis on a column of cleaned text
+
+    """
+    from gensim import corpora
+    from gensim.models import LdaModel
+    from pandarallel import pandarallel
+
+    pandarallel.initialize(nb_workers=4)
+
+    headline_tokenized = df[text_column].parallel_apply(prepare_lda_data)
+
+    dictionary = corpora.Dictionary(headline_tokenized)
+    corpus = [dictionary.doc2bow(text) for text in headline_tokenized]
+
+    # Training of LDA model
+    lda_model = LdaModel(corpus=corpus, id2word=dictionary, num_topics=num_topics, random_state=42, 
+                         update_every=1, chunksize=100, passes=10, alpha='auto', per_word_topics=True)
     
-    # construction of a list of tokens without rare_tokens
-    # tokens = [w for w in tokens if w not in rare_tokens] 
+    # Display extract subjects
+    topics = lda_model.print_topics(num_words=num_words)
+    for topic in topics:
+        print(topic)
 
-    # construction of a list of tokens uniquely with alphabetic characters
-    tokens = [w for w in tokens if w.isalpha()]
-
-    # lemmatisation
-    lemmatizer = WordNetLemmatizer()
-    tokens = [lemmatizer.lemmatize(w) for w in tokens]
-
-    # english words
-    tokens = [w for w in tokens if w in eng_words]
-
-    # cleaned_text 
-    cleaned_text = " ".join(tokens)
-    
-
-    return cleaned_text
+    return lda_model
     

@@ -9,6 +9,7 @@ decorator==5.1.1
 dill==0.3.8
 executing==2.0.1
 fonttools==4.53.1
+gensim==4.3.3
 ipykernel==6.29.5
 ipython==8.26.0
 ipywidgets==8.1.5
@@ -22,7 +23,7 @@ matplotlib==3.9.2
 matplotlib-inline==0.1.7
 nest-asyncio==1.6.0
 nltk==3.9.1
-numpy==2.1.0
+numpy==1.26.4
 packaging==24.1
 pandarallel==1.6.5
 pandas==2.2.2
@@ -41,9 +42,10 @@ pywin32==306
 pyzmq==26.2.0
 regex==2024.7.24
 scikit-learn==1.5.1
-scipy==1.14.1
+scipy==1.13.1
 seaborn==0.13.2
 six==1.16.0
+smart-open==7.0.4
 stack-data==0.6.3
 tenacity==9.0.0
 textblob==0.18.0.post0
@@ -56,3 +58,4 @@ tzdata==2024.1
 wcwidth==0.2.13
 widgetsnbextension==4.0.13
 wordcloud==1.9.3
+wrapt==1.16.0

@@ -7,6 +7,8 @@ We have Financial News and Stock Price Integration datasets. As the datasets are
 # Files included
 - src : Folder containing the python modules used within the project
 - notebooks : Folder containing the notebooks
+- scripts : Folder containing some pre-processing tasks oriented to preparation of the dataset for sentiment analysis
 - README.md : This file
 - requirements.txt
+- data : datasets used for this project haven't uploaded in this repository due to their volume. Possible to have access if you wish it.
 - .gitignore
