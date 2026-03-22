@@ -253,7 +253,7 @@ prettytable==3.10.0
 prometheus-client @ file:///C:/ci_311/prometheus_client_1679591942558/work
 prompt-toolkit @ file:///C:/b/abs_68uwr58ed1/croot/prompt-toolkit_1704404394082/work
 Protego @ file:///tmp/build/80754af9/protego_1598657180827/work
-protobuf==3.20.3
+protobuf==5.29.6
 psutil @ file:///C:/ci_311_rebuilds/psutil_1679005906571/work
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
