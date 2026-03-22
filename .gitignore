@@ -1,0 +1,24 @@
+# Environnements virtuels
+venv/
+env/
+
+# Répertoires de cache Python
+__pycache__/
+*.py[cod]
+
+# Configuration d'IDE (comme VSCode)
+.vscode/
+.idea/
+
+# Fichiers de log
+*.log
+
+# Fichiers de données temporaires ou grandes fichiers
+data/*.csv
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Autres fichiers spécifiques au système ou temporaires
+.DS_Store
+Thumbs.db
