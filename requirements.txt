@@ -44,7 +44,7 @@ boltons @ file:///C:/ci_311/boltons_1677729932371/work
 botocore @ file:///C:/b/abs_5a285dtc94/croot/botocore_1701286504141/work
 Bottleneck @ file:///C:/b/abs_f05kqh7yvj/croot/bottleneck_1707864273291/work
 Brotli @ file:///C:/ci_311/brotli-split_1676435766766/work
-cachetools @ file:///tmp/build/80754af9/cachetools_1619597386817/work
+cachetools==7.0.5
 certifi @ file:///C:/b/abs_55jxithrm3/croot/certifi_1717618077850/work/certifi
 cffi @ file:///C:/b/abs_924gv1kxzj/croot/cffi_1700254355075/work
 chardet @ file:///C:/ci_311/chardet_1676436134885/work
@@ -107,7 +107,7 @@ fsspec @ file:///C:/b/abs_97mpfsesn0/croot/fsspec_1701286534629/work
 future @ file:///C:/ci_311_rebuilds/future_1678998246262/work
 gensim @ file:///C:/ci_311/gensim_1677743037820/work
 geographiclib==2.0
-geopandas==1.0.1
+geopandas==1.1.2
 geopy==2.4.1
 giddy==2.3.5
 gitdb @ file:///tmp/build/80754af9/gitdb_1617117951232/work
@@ -206,7 +206,7 @@ multipledispatch @ file:///C:/ci_311/multipledispatch_1676442767760/work
 munkres==1.1.4
 mypy @ file:///C:/b/abs_3880czibje/croot/mypy-split_1708366584048/work
 mypy-extensions @ file:///C:/b/abs_8f7xiidjya/croot/mypy_extensions_1695131051147/work
-mysql-connector-python==8.4.0
+mysql-connector-python==9.1.0
 natsort==8.4.0
 navigator-updater @ file:///C:/b/abs_895otdwmo9/croot/navigator-updater_1695210220239/work
 nbclient @ file:///C:/b/abs_cal0q5fyju/croot/nbclient_1698934263135/work
@@ -253,7 +253,7 @@ prettytable==3.10.0
 prometheus-client @ file:///C:/ci_311/prometheus_client_1679591942558/work
 prompt-toolkit @ file:///C:/b/abs_68uwr58ed1/croot/prompt-toolkit_1704404394082/work
 Protego @ file:///tmp/build/80754af9/protego_1598657180827/work
-protobuf==3.20.3
+protobuf==5.29.6
 psutil @ file:///C:/ci_311_rebuilds/psutil_1679005906571/work
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
@@ -375,10 +375,10 @@ spvcm==0.3.0
 spyder @ file:///C:/b/abs_e99kl7d8t0/croot/spyder_1681934304813/work
 spyder-kernels @ file:///C:/b/abs_e788a8_4y9/croot/spyder-kernels_1691599588437/work
 SQLAlchemy @ file:///C:/b/abs_876dxwqqu8/croot/sqlalchemy_1705089154696/work
-sqlparse==0.5.0
+sqlparse==0.5.4
 stack-data @ file:///opt/conda/conda-bld/stack_data_1646927590127/work
 statsmodels @ file:///C:/b/abs_7bth810rna/croot/statsmodels_1689937298619/work
-streamlit @ file:///C:/b/abs_ba5je7xxy7/croot/streamlit_1706200559831/work
+streamlit==1.55.0
 sympy @ file:///C:/b/abs_82njkonm7f/croot/sympy_1701397685028/work
 tables @ file:///C:/b/abs_411740ajo7/croot/pytables_1705614883108/work
 tabulate @ file:///C:/b/abs_21rf8iibnh/croot/tabulate_1701354830521/work
