@@ -206,7 +206,7 @@ multipledispatch @ file:///C:/ci_311/multipledispatch_1676442767760/work
 munkres==1.1.4
 mypy @ file:///C:/b/abs_3880czibje/croot/mypy-split_1708366584048/work
 mypy-extensions @ file:///C:/b/abs_8f7xiidjya/croot/mypy_extensions_1695131051147/work
-mysql-connector-python==8.4.0
+mysql-connector-python==9.1.0
 natsort==8.4.0
 navigator-updater @ file:///C:/b/abs_895otdwmo9/croot/navigator-updater_1695210220239/work
 nbclient @ file:///C:/b/abs_cal0q5fyju/croot/nbclient_1698934263135/work
