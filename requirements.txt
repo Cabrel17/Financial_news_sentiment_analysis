@@ -107,7 +107,7 @@ fsspec @ file:///C:/b/abs_97mpfsesn0/croot/fsspec_1701286534629/work
 future @ file:///C:/ci_311_rebuilds/future_1678998246262/work
 gensim @ file:///C:/ci_311/gensim_1677743037820/work
 geographiclib==2.0
-geopandas==1.0.1
+geopandas==1.1.2
 geopy==2.4.1
 giddy==2.3.5
 gitdb @ file:///tmp/build/80754af9/gitdb_1617117951232/work
