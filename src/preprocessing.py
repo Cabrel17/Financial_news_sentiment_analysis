@@ -11,3 +11,32 @@ def wrangle(path):
     df.set_index(df.columns[3], inplace=True) # set timestamp in index
 
     return df
+
+def remove_stop_words(text):
+    """
+    This function return a document without stop words and keep lemme of the words.
+    """
+    import nltk
+    from nltk.corpus import stopwords
+    from nltk.tokenize import RegexpTokenizer 
+    from nltk.stem import WordNetLemmatizer, PorterStemmer
+
+    # Transforming in lower characters and removing of empty spaces
+    text = text.lower().strip()
+
+    # Tokenization
+    tokenizer = RegexpTokenizer(r'\w+')
+    tokens = tokenizer.tokenize(text)
+
+    # Drop stop_words
+    stop_words = set(stopwords.words('english'))
+    cleaned_tokens_list = [w for w in tokens if w not in stop_words]
+
+    #stemming 
+    stem = PorterStemmer()
+    tokens = [stem.stem(w) for w in cleaned_tokens_list]
+
+     # cleaned_text 
+    cleaned_text = " ".join(tokens)
+
+    return cleaned_text
