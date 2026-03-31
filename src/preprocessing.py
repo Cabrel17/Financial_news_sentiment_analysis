@@ -6,7 +6,6 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.stem import WordNetLemmatizer
 from textblob import TextBlob
 
-
 ### Variables
 tokenizer = RegexpTokenizer(r'\w+')
 stop_words = set(stopwords.words('english'))
