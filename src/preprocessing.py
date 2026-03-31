@@ -1,9 +1,22 @@
+### Libraries
+import pandas as pd
+import datetime
+from nltk.corpus import stopwords
+from nltk.tokenize import RegexpTokenizer
+from nltk.stem import WordNetLemmatizer
+from textblob import TextBlob
+
+
+### Variables
+tokenizer = RegexpTokenizer(r'\w+')
+stop_words = set(stopwords.words('english'))
+lemmatizer = WordNetLemmatizer()
+
+### Functions
 def wrangle(path):
     """
     This function takes in argument a path and returns a dataframe.
     """
-    import pandas as pd
-    import datetime
     df = pd.read_csv(path)
     df.drop(columns=df.columns[0], inplace=True) # remove an empty column
     df.drop_duplicates(inplace=True) # remove duplicates
@@ -12,31 +25,22 @@ def wrangle(path):
 
     return df
 
+####################
+
 def remove_stop_words(text):
     """
     This function return a document without stop words and keep lemme of the words.
     """
-    import nltk
-    from nltk.corpus import stopwords
-    from nltk.tokenize import RegexpTokenizer 
-    from nltk.stem import WordNetLemmatizer, PorterStemmer
-
-    # Transforming in lower characters and removing of empty spaces
     text = text.lower().strip()
-
-    # Tokenization
-    tokenizer = RegexpTokenizer(r'\w+')
     tokens = tokenizer.tokenize(text)
+    tokens = [w for w in tokens if w not in stop_words]
+    tokens = [lemmatizer.lemmatize(w) for w in tokens]
+    return " ".join(tokens)
 
-    # Drop stop_words
-    stop_words = set(stopwords.words('english'))
-    cleaned_tokens_list = [w for w in tokens if w not in stop_words]
+####################
 
-    #stemming 
-    stem = PorterStemmer()
-    tokens = [stem.stem(w) for w in cleaned_tokens_list]
-
-     # cleaned_text 
-    cleaned_text = " ".join(tokens)
-
-    return cleaned_text
+def get_polarity(text):
+    """
+    This function return the polarity of a text.
+    """
+    return TextBlob(text).sentiment.polarity
