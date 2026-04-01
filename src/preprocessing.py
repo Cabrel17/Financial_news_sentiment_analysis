@@ -43,3 +43,32 @@ def get_polarity(text):
     This function return the polarity of a text.
     """
     return TextBlob(text).sentiment.polarity
+
+###################
+
+def perform_lda(df, text_column, num_topics=5, num_words=5):
+    """
+    Applies LDA model for subject analysis on a column of cleaned text
+
+    """
+    from gensim import corpora
+    from gensim.models import LdaModel
+    from pandarallel import pandarallel
+
+    pandarallel.initialize(nb_workers=4)
+
+    headline_tokenized = df[text_column].parallel_apply(prepare_lda_data)
+
+    dictionary = corpora.Dictionary(headline_tokenized)
+    corpus = [dictionary.doc2bow(text) for text in headline_tokenized]
+
+    # Training of LDA model
+    lda_model = LdaModel(corpus=corpus, id2word=dictionary, num_topics=num_topics, random_state=42, 
+                         update_every=1, chunksize=100, passes=10, alpha='auto', per_word_topics=True)
+    
+    # Display extract subjects
+    topics = lda_model.print_topics(num_words=num_words)
+    for topic in topics:
+        print(topic)
+
+    return lda_model
