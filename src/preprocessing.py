@@ -5,6 +5,8 @@ from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem import WordNetLemmatizer
 from textblob import TextBlob
+from gensim import corpora
+from gensim.models import Phrases, LdaModel
 
 ### Variables
 tokenizer = RegexpTokenizer(r'\w+')
@@ -44,31 +46,48 @@ def get_polarity(text):
     """
     return TextBlob(text).sentiment.polarity
 
+
 ###################
 
 def perform_lda(df, text_column, num_topics=5, num_words=5):
-    """
-    Applies LDA model for subject analysis on a column of cleaned text
+    # Creation of bigrams
+    raw_tokens = df[text_column].apply(lambda x: str(x).split()).tolist()
+    bigram_transformer = Phrases(raw_tokens, min_count=5, threshold=10)
+    texts = [bigram_transformer[doc] for doc in raw_tokens]
 
-    """
-    from gensim import corpora
-    from gensim.models import LdaModel
-    from pandarallel import pandarallel
+    # Creation of the dictionary and corpus for LDA
+    dictionary = corpora.Dictionary(texts)
+    corpus = [dictionary.doc2bow(text) for text in texts]
 
-    pandarallel.initialize(nb_workers=4)
+    # Training of the LDA model
+    lda_model = LdaModel(
+        corpus=corpus, 
+        id2word=dictionary, 
+        num_topics=num_topics, 
+        random_state=42, 
+        passes=15, 
+        alpha='auto'
+    )
 
-    headline_tokenized = df[text_column].parallel_apply(prepare_lda_data)
+    # Function to get the main topic for each document
+    def get_main_topic(bow):
+        topics = lda_model.get_document_topics(bow)
+        return max(topics, key=lambda x: x[1]) # Retourne (ID, Probabilité)
 
-    dictionary = corpora.Dictionary(headline_tokenized)
-    corpus = [dictionary.doc2bow(text) for text in headline_tokenized]
-
-    # Training of LDA model
-    lda_model = LdaModel(corpus=corpus, id2word=dictionary, num_topics=num_topics, random_state=42, 
-                         update_every=1, chunksize=100, passes=10, alpha='auto', per_word_topics=True)
+    # Dataframe enrichment
+    topic_info = [get_main_topic(bow) for bow in corpus]
+    df['Topic_ID'] = [t[0] for t in topic_info]
+    df['Topic_Score'] = [t[1] for t in topic_info]
     
-    # Display extract subjects
-    topics = lda_model.print_topics(num_words=num_words)
-    for topic in topics:
-        print(topic)
+    # Extraction of key words
+    keywords = {i: [word for word, prop in lda_model.show_topic(i, num_words)] 
+                for i in range(num_topics)}
+    
+    df['Topic_Keywords'] = df['Topic_ID'].map(keywords)
 
-    return lda_model
+    # Display topics
+    print("--- Synthèse des Thématiques ---")
+    for i, words in keywords.items():
+        print(f"Thème {i}: {', '.join(words)}")
+
+    return lda_model, df
