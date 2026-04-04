@@ -34,7 +34,7 @@ def remove_stop_words(text):
     """
     text = text.lower().strip()
     tokens = tokenizer.tokenize(text)
-    tokens = [w for w in tokens if w not in stop_words]
+    tokens = [w for w in tokens if w not in stop_words and w.isalpha()]
     tokens = [lemmatizer.lemmatize(w) for w in tokens]
     return " ".join(tokens)
 
