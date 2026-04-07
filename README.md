@@ -9,5 +9,4 @@ The main aim of this analysis is to understand stocks movement based on people's
 - notebooks : Folder containing the notebooks
 - README.md : This file
 - requirements.txt
-- data : datasets used for this project haven't uploaded in this repository due to their volume.
 - .gitignore
